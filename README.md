@@ -1,6 +1,6 @@
 Network Security project involves for Phishing data
 
-Update secrets in GITHUB for below in settings in secrets and variables then action:
+Update secrets in GITHUB for below in settings in secrets and variables:
 
 aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
 aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
