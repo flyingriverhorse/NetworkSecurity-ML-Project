@@ -5,8 +5,12 @@ pymongo[srv]
 pymongo
 certifi
 scikit-learn
-dill
 pyaml
+mlflow
+dagshub
+fastapi
+uvicorn
+python-multipart
 
-
+# For local development
 -e .
