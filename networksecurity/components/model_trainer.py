@@ -27,6 +27,11 @@ from urllib.parse import urlparse
 import dagshub
 dagshub.init(repo_owner='flyingriverhorse', repo_name='NetworkSecurity-ML-Project', mlflow=True)
 
+os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/krishnaik06/networksecurity.mlflow"
+os.environ["MLFLOW_TRACKING_USERNAME"]="krishnaik06"
+os.environ["MLFLOW_TRACKING_PASSWORD"]="7104284f1bb44ece21e0e2adb4e36a250ae3251f"
+
+
 class ModelTrainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig,
                  data_transformation_artifact:DataTransformationArtifact):
@@ -37,12 +42,24 @@ class ModelTrainer:
             raise NetworkSecurityException(e,sys) from e
         
     def track_mlflow(self,best_model,classificationmetric):
+        mlflow.set_registry_uri("https://dagshub.com/flyingriverhorse/NetworkSecurity-ML-Project.mlflow")
+        tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
         with mlflow.start_run():
             mlflow.sklearn.log_model(best_model, "model")
             mlflow.log_metric("f1_score", classificationmetric.f1_score)
             mlflow.log_metric("recall_score", classificationmetric.recall_score)
             mlflow.log_metric("precision_score", classificationmetric.precision_score)
+            mlflow.log_param("best_model_name", best_model.__class__.__name__)
+            # Model registry does not work with file store
+            if tracking_url_type_store != "file":
 
+                # Register the model
+                # There are other ways to use the Model Registry, which depends on the use case,
+                # please refer to the doc for more information:
+                # https://mlflow.org/docs/latest/model-registry.html#api-workflow
+                mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model)
+            else:
+                mlflow.sklearn.log_model(best_model, "model")
 
             # Log the mlflow tracking URI for the model
             url = urlparse(mlflow.get_tracking_uri())
@@ -100,20 +117,21 @@ class ModelTrainer:
         
         ## To get best model score from dict
         best_model_score = max(sorted(model_report.values()))
-
+        logging.info(f"Best model score: {best_model_score}")   
         ## To get best model name from dict
-
+        ## and then get the model object from models dict
         best_model_name = list(model_report.keys())[
             list(model_report.values()).index(best_model_score)
         ]
         best_model = models[best_model_name]
         y_train_pred=best_model.predict(X_train)
-
+        logging.info(f"Best model name: {best_model_name}")
+        logging.info(f"Best model: {best_model}")
         classification_train_metric=get_classification_score(y_true=y_train,y_pred=y_train_pred)
         
         ## Track the experiements with mlflow
         self.track_mlflow(best_model,classification_train_metric)
-
+        
         y_test_pred=best_model.predict(x_test)
         classification_test_metric=get_classification_score(y_true=y_test,y_pred=y_test_pred)
 
