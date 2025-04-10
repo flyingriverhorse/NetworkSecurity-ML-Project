@@ -1,0 +1,17 @@
+First download AWS CLI.
+use msi file recommed. 
+write on cmd aws command to see if it works
+then go to aws account
+then create IAM user account
+choose username
+attach policy directly choose this. give admistrator access in companies can be different
+then create the user
+go to security credentials then access keys and create access keys
+then select command line interface CLI then click confirmation
+you can give tag here if you want if not click create access key
+then you can get access key and secret access key
+
+in cmd
+aws configure
+it shows for this just copy paste keys 
+

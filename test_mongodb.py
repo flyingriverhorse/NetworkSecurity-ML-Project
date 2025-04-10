@@ -1,6 +1,6 @@
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-
+import os
 from dotenv import load_dotenv
 # Replace the placeholder with your actual MongoDB connection string
 MONGO_DB_URL = os.getenv("MONGO_DB_URL")
