@@ -91,6 +91,9 @@ class DataTransformation:
             #to create pickle file
             save_object(self.data_transformation_config.transformed_object_file_path, preprocessor_object, )
 
+            #save_object preprocessor object
+            save_object("final_model/preprocessor.pkl",preprocessor_object)
+
             #preparing artifacts
             data_transformation_artifact=DataTransformationArtifact(
                 transformed_object_file_path=self.data_transformation_config.transformed_object_file_path,

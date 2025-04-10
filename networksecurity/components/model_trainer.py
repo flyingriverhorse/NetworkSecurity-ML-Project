@@ -43,6 +43,7 @@ class ModelTrainer:
             mlflow.log_metric("recall_score", classificationmetric.recall_score)
             mlflow.log_metric("precision_score", classificationmetric.precision_score)
 
+
             # Log the mlflow tracking URI for the model
             url = urlparse(mlflow.get_tracking_uri())
             print(f"Model tracking URI: {url.scheme}://{url.netloc}{url.path}")
