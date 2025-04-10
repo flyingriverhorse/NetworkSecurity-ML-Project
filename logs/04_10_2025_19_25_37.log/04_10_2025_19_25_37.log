@@ -1,0 +1,33 @@
+[2025-04-10 19:26:46,228] 115 root - INFO - Starting the training pipeline
+[2025-04-10 19:26:46,228] 116 root - INFO - Creating artifact directory
+[2025-04-10 19:26:46,228] 42 root - INFO - Start data Ingestion
+[2025-04-10 19:26:47,733] 68 root - INFO - Performed train test split on the dataframe
+[2025-04-10 19:26:47,733] 70 root - INFO - Exited split_data_as_train_test method of Data_Ingestion class
+[2025-04-10 19:26:47,734] 78 root - INFO - Exporting train and test file path.
+[2025-04-10 19:26:47,798] 87 root - INFO - Exported train and test file path.
+[2025-04-10 19:26:47,800] 45 root - INFO - Data Ingestion completed and artifact: DataIngestionArtifact(trained_file_path='Artifacts\\04_10_2025_19_25_38\\data_ingestion\\ingested\\train.csv', test_file_path='Artifacts\\04_10_2025_19_25_38\\data_ingestion\\ingested\\test.csv')
+[2025-04-10 19:26:47,808] 55 root - INFO - Initiate the data Validation
+[2025-04-10 19:26:47,875] 32 root - INFO - Required number of columns: 2
+[2025-04-10 19:26:47,875] 33 root - INFO - Data Frame has columns: 31
+[2025-04-10 19:26:47,875] 32 root - INFO - Required number of columns: 2
+[2025-04-10 19:26:47,875] 33 root - INFO - Data Frame has columns: 31
+[2025-04-10 19:26:47,978] 70 root - INFO - Drift report file path: Artifacts\04_10_2025_19_25_38\data_validation\drift_report\report.yaml
+[2025-04-10 19:26:48,037] 60 root - INFO - Entered initiate_data_transformation method of DataTransformation Class
+[2025-04-10 19:26:48,038] 62 root - INFO - Starting data transformation!
+[2025-04-10 19:26:48,058] 47 root - INFO - Entered get_data_transformer_object method of transformation class
+[2025-04-10 19:26:48,059] 53 root - INFO - Initialise KNNimputer with {'missing_values': nan, 'n_neighbors': 3, 'weights': 'uniform'}
+[2025-04-10 19:26:48,073] 45 root - INFO - Entered the save_object method of MainUtils class
+[2025-04-10 19:26:48,076] 49 root - INFO - Exited the save_object method of MainUtils class
+[2025-04-10 19:26:48,076] 45 root - INFO - Entered the save_object method of MainUtils class
+[2025-04-10 19:26:48,079] 49 root - INFO - Exited the save_object method of MainUtils class
+[2025-04-10 19:26:48,080] 173 root - INFO - Initiating model trainer
+[2025-04-10 19:30:41,192] 130 root - INFO - Best model score: 0.9014595286986722
+[2025-04-10 19:30:41,259] 138 root - INFO - Best model name: XGBoost
+[2025-04-10 19:31:04,309] 45 root - INFO - Entered the save_object method of MainUtils class
+[2025-04-10 19:31:04,310] 49 root - INFO - Exited the save_object method of MainUtils class
+[2025-04-10 19:31:04,310] 45 root - INFO - Entered the save_object method of MainUtils class
+[2025-04-10 19:31:04,317] 49 root - INFO - Exited the save_object method of MainUtils class
+[2025-04-10 19:31:04,318] 167 root - INFO - Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='Artifacts\\04_10_2025_19_25_38\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9867823630309757, precision_score=0.9854897218863361, recall_score=0.9880783996767024), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9777411376751854, precision_score=0.9737274220032841, recall_score=0.9817880794701986))
+[2025-04-10 19:31:04,320] 123 root - INFO - Syncing artifact directory and saved model directory to S3
+[2025-04-10 19:31:04,321] 93 root - INFO - Syncing artifact directory to S3
+[2025-04-10 19:31:04,352] 104 root - INFO - Syncing saved model directory to S3

@@ -14,4 +14,7 @@ Requires-Dist: scikit-learn
 Requires-Dist: pyaml
 Requires-Dist: mlflow
 Requires-Dist: dagshub
-Requires-Dist: google.auth
+Requires-Dist: fastapi
+Requires-Dist: uvicorn
+Requires-Dist: python-multipart
+Requires-Dist: xgboost

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Murat/NetworkSecurity/mlruns/0/53b378a1903d4b59ad5c3d2aef43a073/artifacts
+end_time: 1744302664291
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 53b378a1903d4b59ad5c3d2aef43a073
+run_name: serious-cow-899
+run_uuid: 53b378a1903d4b59ad5c3d2aef43a073
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744302657592
+status: 3
+tags: []
+user_id: Murat

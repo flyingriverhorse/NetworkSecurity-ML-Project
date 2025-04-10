@@ -21,15 +21,16 @@ from sklearn.ensemble import (
     GradientBoostingClassifier,
     RandomForestClassifier,
 )
+from xgboost import XGBClassifier
 import mlflow
 from urllib.parse import urlparse
 
-import dagshub
-dagshub.init(repo_owner='flyingriverhorse', repo_name='NetworkSecurity-ML-Project', mlflow=True)
+#import dagshub
+#dagshub.init(repo_owner='flyingriverhorse', repo_name='NetworkSecurity-ML-Project', mlflow=True)
 
-os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/krishnaik06/networksecurity.mlflow"
-os.environ["MLFLOW_TRACKING_USERNAME"]="krishnaik06"
-os.environ["MLFLOW_TRACKING_PASSWORD"]="7104284f1bb44ece21e0e2adb4e36a250ae3251f"
+#os.environ["MLFLOW_TRACKING_URI"]="https://dagshub.com/krishnaik06/networksecurity.mlflow"
+#os.environ["MLFLOW_TRACKING_USERNAME"]="flyingriverhorse"
+#os.environ["MLFLOW_TRACKING_PASSWORD"]="7104284f1bb44ece21e0e2adb4e36a250ae3251f"
 
 
 class ModelTrainer:
@@ -42,8 +43,8 @@ class ModelTrainer:
             raise NetworkSecurityException(e,sys) from e
         
     def track_mlflow(self,best_model,classificationmetric):
-        mlflow.set_registry_uri("https://dagshub.com/flyingriverhorse/NetworkSecurity-ML-Project.mlflow")
-        tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
+        #mlflow.set_registry_uri("https://dagshub.com/flyingriverhorse/NetworkSecurity-ML-Project.mlflow")
+        #tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
         with mlflow.start_run():
             mlflow.sklearn.log_model(best_model, "model")
             mlflow.log_metric("f1_score", classificationmetric.f1_score)
@@ -51,6 +52,7 @@ class ModelTrainer:
             mlflow.log_metric("precision_score", classificationmetric.precision_score)
             mlflow.log_param("best_model_name", best_model.__class__.__name__)
             # Model registry does not work with file store
+            '''
             if tracking_url_type_store != "file":
 
                 # Register the model
@@ -60,13 +62,15 @@ class ModelTrainer:
                 mlflow.sklearn.log_model(best_model, "model", registered_model_name=best_model)
             else:
                 mlflow.sklearn.log_model(best_model, "model")
-
+            ''' 
             # Log the mlflow tracking URI for the model
-            url = urlparse(mlflow.get_tracking_uri())
-            print(f"Model tracking URI: {url.scheme}://{url.netloc}{url.path}")
+            #url = urlparse(mlflow.get_tracking_uri())
+            #print(f"Model tracking URI: {url.scheme}://{url.netloc}{url.path}")
         
     def train_model(self,X_train,y_train,x_test,y_test)->NetworkModel:
         models = {
+            ## Models to be trained
+                "XGBoost": XGBClassifier(use_label_encoder=False, eval_metric="logloss"),
                 "KNeighbors Classifier": KNeighborsClassifier(),
                 "Random Forest": RandomForestClassifier(verbose=1),
                 "Decision Tree": DecisionTreeClassifier(),
@@ -75,6 +79,12 @@ class ModelTrainer:
                 "AdaBoost": AdaBoostClassifier(),
             }
         params={
+            ## Hyperparameters for each model
+            "XGBoost": {
+                'learning_rate':[.1,.01,.05,.001],
+                'subsample':[0.6,0.7,0.75,0.85,0.9],
+                'n_estimators': [8,16,32,64,128,256]
+            },
             "KNeighbors Classifier": {
                 'n_neighbors':[3,5,7,9,11],
                 'weights':['uniform','distance'],
@@ -126,12 +136,12 @@ class ModelTrainer:
         best_model = models[best_model_name]
         y_train_pred=best_model.predict(X_train)
         logging.info(f"Best model name: {best_model_name}")
-        logging.info(f"Best model: {best_model}")
+        #logging.info(f"Best model: {best_model}")
         classification_train_metric=get_classification_score(y_true=y_train,y_pred=y_train_pred)
         
         ## Track the experiements with mlflow
         self.track_mlflow(best_model,classification_train_metric)
-        
+
         y_test_pred=best_model.predict(x_test)
         classification_test_metric=get_classification_score(y_true=y_test,y_pred=y_test_pred)
 

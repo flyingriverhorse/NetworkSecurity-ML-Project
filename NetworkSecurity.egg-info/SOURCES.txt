@@ -1,6 +1,8 @@
 .gitignore
 Dockerfile
 README.md
+app.py
+aws cli how to.txt
 main.py
 push_data.py
 requirements.txt
@@ -18,6 +20,7 @@ networksecurity/__init__.py
 networksecurity/__pycache__/__init__.cpython-310.pyc
 networksecurity/__pycache__/__init__.cpython-39.pyc
 networksecurity/cloud/__init__.py
+networksecurity/cloud/s3_syncer.py
 networksecurity/components/__init__.py
 networksecurity/components/data_ingestion.py
 networksecurity/components/data_transformation.py
@@ -30,6 +33,7 @@ networksecurity/components/__pycache__/data_ingestion.cpython-39.pyc
 networksecurity/components/__pycache__/data_transformation.cpython-39.pyc
 networksecurity/components/__pycache__/data_validation.cpython-310.pyc
 networksecurity/components/__pycache__/data_validation.cpython-39.pyc
+networksecurity/components/__pycache__/model_trainer.cpython-39.pyc
 networksecurity/constant/__init__.py
 networksecurity/constant/__pycache__/__init__.cpython-310.pyc
 networksecurity/constant/__pycache__/__init__.cpython-39.pyc
@@ -58,6 +62,8 @@ networksecurity/logging/__pycache__/__init__.cpython-39.pyc
 networksecurity/logging/__pycache__/logger.cpython-310.pyc
 networksecurity/logging/__pycache__/logger.cpython-39.pyc
 networksecurity/pipeline/__init__.py
+networksecurity/pipeline/batch_prediction.py
+networksecurity/pipeline/training_pipeline.py
 networksecurity/utils/__init__.py
 networksecurity/utils/__pycache__/__init__.cpython-310.pyc
 networksecurity/utils/__pycache__/__init__.cpython-39.pyc
@@ -68,7 +74,14 @@ networksecurity/utils/main_utils/__pycache__/__init__.cpython-39.pyc
 networksecurity/utils/main_utils/__pycache__/utils.cpython-310.pyc
 networksecurity/utils/main_utils/__pycache__/utils.cpython-39.pyc
 networksecurity/utils/ml_utils/__init__.py
+networksecurity/utils/ml_utils/__pycache__/__init__.cpython-39.pyc
 networksecurity/utils/ml_utils/metric/__init__.py
 networksecurity/utils/ml_utils/metric/classification_metric.py
+networksecurity/utils/ml_utils/metric/__pycache__/__init__.cpython-39.pyc
+networksecurity/utils/ml_utils/metric/__pycache__/classification_metric.cpython-39.pyc
 networksecurity/utils/ml_utils/model/__init__.py
 networksecurity/utils/ml_utils/model/estimator.py
+networksecurity/utils/ml_utils/model/__pycache__/__init__.cpython-39.pyc
+networksecurity/utils/ml_utils/model/__pycache__/estimator.cpython-39.pyc
+templates/table.html
+valid_data/test.csv
